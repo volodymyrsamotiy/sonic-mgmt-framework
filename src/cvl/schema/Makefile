@@ -43,7 +43,7 @@ schema-tree: $(out_tree)
 	@echo "Generating `basename $@` ..."
 	@devFile="`echo $@ | cut -d . -f1`-deviation.yang"; \
 	if [ -f $$devFile ] ; then devOpt="--deviation-module $$devFile"; fi; \
-	pyang -p $(search_path)	--plugindir $(pyang_plugin_dir) \
+	python3 -m pyang -p $(search_path)	--plugindir $(pyang_plugin_dir) \
 		-f yin-cvl $$devOpt $< -o `basename $@`
 
 
@@ -52,14 +52,14 @@ schema-tree: $(out_tree)
 	@echo "Generating `basename $@` ..."
 	@devFile="`echo $@ | cut -d . -f1`-deviation.yang"; \
 	if [ -f $$devFile ] ; then devOpt="--deviation-module $$devFile"; fi; \
-	pyang -p $(search_path)	--plugindir $(pyang_plugin_dir) \
+	python3 -m pyang -p $(search_path)	--plugindir $(pyang_plugin_dir) \
 		-f yin-cvl $$devOpt $< -o `basename $@`
 
 %.tree:%.yang
 	@echo "Generating `basename $@` ..."
 	@devFile="`echo $< | cut -d . -f1`-dev.yang"; \
 	if [ -f $$devFile ] ; then devOpt="--deviation-module $$devFile"; fi; \
-	pyang -p $(search_path) -f tree $$devOpt $< -o `basename $@`
+	python3 -m pyang -p $(search_path) -f tree $$devOpt $< -o `basename $@`
 
 clean:
 	@echo "Removing files ..."
